@@ -4,6 +4,7 @@ import classes from "./page.module.css";
 import { Suspense } from "react";
 import Link from "next/link";
 
+
 async function Meals() {
   const meals = await getMeals();
 

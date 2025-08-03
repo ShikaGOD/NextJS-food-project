@@ -3,20 +3,33 @@ import classes from "./page.module.css";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-export default function MealDetalisPage({params}) {
+export async function generateMetadata({ params }) {
   const meal = getMeal(params.mealSlug);
 
   if (!meal) {
     notFound();
-  } 
+  }
 
-  meal.instructions = meal.instructions.replace(/\n/g, '<br />')
+  return {
+    title: meal.title,
+    description: meal.summary,
+  };
+}
+
+export default function MealDetalisPage({ params }) {
+  const meal = getMeal(params.mealSlug);
+
+  if (!meal) {
+    notFound();
+  }
+
+  meal.instructions = meal.instructions.replace(/\n/g, "<br />");
 
   return (
     <>
       <header className={classes.header}>
         <div className={classes.image}>
-          <Image src={meal.image} alt={meal.title} fill/>
+          <Image src={meal.image} alt={meal.title} fill />
         </div>
         <div className={classes.headerText}>
           <h1>{meal.title}</h1>
